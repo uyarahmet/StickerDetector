@@ -3,7 +3,6 @@ import numpy as np
 
 print("Package Imported")
 
-
 ''' CHAPTER #1 TAKEAWAY DEMOS
 
 img = cv2.imread('Resources/gogh.jpeg')
@@ -111,11 +110,4 @@ cv2.text
 
 Chapter 4 End
 '''
-
-
-
-
-
-
-
 
