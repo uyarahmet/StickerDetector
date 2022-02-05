@@ -12,6 +12,11 @@
  StickerDetector projected prepared for eKare Inc.
   </p>
 
+Please install the dependencies from <code>requirements.txt</code> before running the project
+
+<code>pip install -r requirements.txt</code>
+
+<br>
 
 </p>
 
