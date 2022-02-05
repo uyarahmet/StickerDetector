@@ -8,11 +8,12 @@
 <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"/>
   
 
- <br> 
  
 <p align= "center">
  StickerDetector projected prepared for eKare Inc.
   </p>
+  
+<br>
 
 Please install the dependencies from <code>requirements.txt</code> before running the project
 
