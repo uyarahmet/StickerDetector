@@ -12,7 +12,7 @@ cv2.imshow("Output", img)
 cv2.waitKey(0)
 
 *************CHAPTER 1 END****************
-''''
+'''
 
 ''' CHAPTER #2 BASIC FUNCTIONS
 
@@ -67,16 +67,34 @@ CHAPTER 2 KEY QUESTIONS : WHAT IS KERNEL IN OPENCV
 CHAPTER 2 END ***************************************
 '''
 
-
-
 '''CHAPTER #3 START **********************************
 
+img = cv2.imread('Resources/gogh.jpeg')
+print(img.shape)
+imgResize = cv2.resize(img, (1000,500)) # resize function: width, height
+print(imgResize.shape)
+imgCropped = img [0:200, 200:500] # height, width
 
+cv2.imshow("Image", img)
+cv2.imshow("Image Resize", imgResize)
+cv2.imshow("Image Cropped", imgCropped)
+cv2.waitKey(0)
 
+resizing and cropping was learned from this chapter
 
 CHAPTER #3 END ***************************
 '''
 
+''' Chapter 4 Start
+
+
+
+
+
+
+
+Chapter 4 End
+'''
 
 
 
