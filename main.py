@@ -4,10 +4,18 @@ import os
 
 for i in range(49,103): # from IMG_0049 to IMG_102
 
-    img = cv2.imread('Resources/IMG_00' + str(i) +'.jpeg', cv2.IMREAD_COLOR) # Reading image
+    #img = cv2.imread('Resources/IMG_00' + str(i) +'.jpeg', cv2.IMREAD_COLOR) # Reading image
+
+    if i >= 100:
+        img = cv2.imread('Resources/IMG_0' + str(i) + '.jpeg', cv2.IMREAD_COLOR)  # Reading image
+    else:
+        img = cv2.imread('Resources/IMG_00' + str(i) + '.jpeg', cv2.IMREAD_COLOR)  # Reading image
+
+
     # Convert to grayscale.
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Blur using 3 * 3 kernel.
+
     gray_blurred = cv2.blur(gray, (3, 3))
     # Apply Hough transform on the blurred image.
     detected_circles = cv2.HoughCircles(gray_blurred,
@@ -27,4 +35,3 @@ for i in range(49,103): # from IMG_0049 to IMG_102
             cv2.circle(img, (a, b), 1, (0, 0, 255), 30)
         path = 'Output/'
         cv2.imwrite(os.path.join(path, 'img' + str(i) + '.jpeg'), img)
-
