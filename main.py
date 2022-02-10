@@ -19,8 +19,8 @@ for i in range(49,103): # from IMG_0049 to IMG_102
     gray_blurred = cv2.blur(gray, (3, 3))
     # Apply Hough transform on the blurred image.
     detected_circles = cv2.HoughCircles(gray_blurred,
-                                        cv2.HOUGH_GRADIENT, 1, 20, minRadius=50, maxRadius=400) # Existing logic
-
+                                        cv2.HOUGH_GRADIENT, 1, 20, minRadius=5, maxRadius=1500) # Existing logic
+    print(img.shape)
     # Draw circles that are detected.
     if detected_circles is not None:
         # Convert the circle parameters a, b and r to integers.
