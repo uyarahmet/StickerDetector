@@ -3,11 +3,12 @@ import numpy as np
 import os
 
 
-for i in range(48,103): # from IMG_0049 to IMG_102
+for i in range(49,103): # from IMG_0049 to IMG_102
 
-
-    img = cv2.imread('Resources/IMG_0048.jpeg')  # Reading image
-
+    if i >= 100:
+        img = cv2.imread('Resources/IMG_0' + str(i) + '.jpeg', cv2.IMREAD_COLOR)  # Reading image
+    else:
+        img = cv2.imread('Resources/IMG_00' + str(i) + '.jpeg', cv2.IMREAD_COLOR)  # Reading image
 
     def empty(a):
         pass
@@ -30,12 +31,11 @@ for i in range(48,103): # from IMG_0049 to IMG_102
     lower = np.array([h_min, s_min, v_min])
     upper = np.array([h_max, s_max, v_max])
     mask = cv2.inRange(imgHSV, lower, upper)
-    cv2.imshow("Origin", mask)
-    cv2.waitKey(0)
+    cv2.imshow("Origin " + str(i), mask)
+    cv2.waitKey(1)
 
     detected_circles = cv2.HoughCircles(mask,
-                                        cv2.HOUGH_GRADIENT, 1, 20, minRadius=5, maxRadius=400) # Existing logic
-    print(img.shape)
+                                        cv2.HOUGH_GRADIENT,1 ,300, param1=50, param2=30, minRadius=1, maxRadius=400) # Existing logic
     # Draw circles that are detected.
     if detected_circles is not None:
         # Convert the circle parameters a, b and r to integers.
