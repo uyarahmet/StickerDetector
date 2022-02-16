@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import os
 
-
 for i in range(49,103): # from IMG_0049 to IMG_102
 
     if i >= 100:
@@ -13,11 +12,10 @@ for i in range(49,103): # from IMG_0049 to IMG_102
     def empty(a):
         pass
 
-
     cv2.namedWindow("TrackBars")
     cv2.createTrackbar("Hue Min", "TrackBars", 85, 179, empty)
     cv2.createTrackbar("Hue Max", "TrackBars", 179, 179, empty)
-    cv2.createTrackbar("Sat Min", "TrackBars", 150, 255, empty)
+    cv2.createTrackbar("Sat Min", "TrackBars", 128, 255, empty)
     cv2.createTrackbar("Sat Max", "TrackBars", 255, 255, empty)
     cv2.createTrackbar("Val Min", "TrackBars", 102, 255, empty)
     cv2.createTrackbar("Val Max", "TrackBars", 255, 255, empty)
