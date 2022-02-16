@@ -2,24 +2,39 @@ import cv2
 import numpy as np
 import os
 
-for i in range(49,103): # from IMG_0049 to IMG_102
 
-    #img = cv2.imread('Resources/IMG_00' + str(i) +'.jpeg', cv2.IMREAD_COLOR) # Reading image
-
-    if i >= 100:
-        img = cv2.imread('Resources/IMG_0' + str(i) + '.jpeg', cv2.IMREAD_COLOR)  # Reading image
-    else:
-        img = cv2.imread('Resources/IMG_00' + str(i) + '.jpeg', cv2.IMREAD_COLOR)  # Reading image
+for i in range(48,103): # from IMG_0049 to IMG_102
 
 
-    # Convert to grayscale.
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # Blur using 3 * 3 kernel.
+    img = cv2.imread('Resources/IMG_0048.jpeg')  # Reading image
 
-    gray_blurred = cv2.blur(gray, (3, 3))
-    # Apply Hough transform on the blurred image.
-    detected_circles = cv2.HoughCircles(gray_blurred,
-                                        cv2.HOUGH_GRADIENT, 1, 20, minRadius=5, maxRadius=1500) # Existing logic
+
+    def empty(a):
+        pass
+
+
+    cv2.namedWindow("TrackBars")
+    cv2.createTrackbar("Hue Min", "TrackBars", 85, 179, empty)
+    cv2.createTrackbar("Hue Max", "TrackBars", 179, 179, empty)
+    cv2.createTrackbar("Sat Min", "TrackBars", 150, 255, empty)
+    cv2.createTrackbar("Sat Max", "TrackBars", 255, 255, empty)
+    cv2.createTrackbar("Val Min", "TrackBars", 102, 255, empty)
+    cv2.createTrackbar("Val Max", "TrackBars", 255, 255, empty)
+    imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    h_min = cv2.getTrackbarPos("Hue Min", "TrackBars")
+    h_max = cv2.getTrackbarPos("Hue Max", "TrackBars")
+    s_min = cv2.getTrackbarPos("Sat Min", "TrackBars")
+    s_max = cv2.getTrackbarPos("Sat Max", "TrackBars")
+    v_min = cv2.getTrackbarPos("Val Min", "TrackBars")
+    v_max = cv2.getTrackbarPos("Val Max", "TrackBars")
+    lower = np.array([h_min, s_min, v_min])
+    upper = np.array([h_max, s_max, v_max])
+    mask = cv2.inRange(imgHSV, lower, upper)
+    cv2.imshow("Origin", mask)
+    cv2.waitKey(0)
+
+    detected_circles = cv2.HoughCircles(mask,
+                                        cv2.HOUGH_GRADIENT, 1, 20, minRadius=5, maxRadius=400) # Existing logic
     print(img.shape)
     # Draw circles that are detected.
     if detected_circles is not None:
@@ -34,4 +49,14 @@ for i in range(49,103): # from IMG_0049 to IMG_102
             # Draw a small circle (of radius 1) to show the center (needed for later).
             cv2.circle(img, (a, b), 1, (0, 0, 255), 30)
         path = 'Output/'
-        cv2.imwrite(os.path.join(path, 'img' + str(i) + '.jpeg'), img)
+        cv2.imwrite(os.path.join(path, 'IMG_' + str(i) + '.jpeg'), img)
+
+
+
+
+
+
+
+
+
+
