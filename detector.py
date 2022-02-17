@@ -1,14 +1,28 @@
+# ---------------------------------------------------------------------------
+# This program detects ekare's stickers in a given input file from Resources
+# and writes to a file inside the Output folder.
+#
+# (C) 2022 Ahmet Uyar, Derin Berktay, Özgür Güler, VA, United States
+#  email: auyar19@ku.edu.tr, bberktay19@ku.edu.tr, oguler@ekareinc.com
+#
+# ---------------------------------------------------------------------------
 import cv2
 import numpy as np
 import os
 import glob
-def detectormethod(file):
+def detector_method(file):
+    '''
+    :param file: jpeg, jpg, img...
+    :return: void, writes on images
+    the detector function takes a file as an input, then detects ekare's sticker and writes to an image
+    where the detected circle is shown and the diameter in terms of pixels is written on the left top corner.
+    '''
     img = cv2.imread(file, cv2.IMREAD_COLOR)
 
-    def empty(a):
+    def empty(a): # Empty function needed for parameter
         pass
 
-    cv2.namedWindow("TrackBars")
+    cv2.namedWindow("TrackBars") # Creating the filter.
     cv2.createTrackbar("Hue Min", "TrackBars", 85, 179, empty)
     cv2.createTrackbar("Hue Max", "TrackBars", 179, 179, empty)
     cv2.createTrackbar("Sat Min", "TrackBars", 128, 255, empty)
@@ -22,15 +36,15 @@ def detectormethod(file):
     s_max = cv2.getTrackbarPos("Sat Max", "TrackBars")
     v_min = cv2.getTrackbarPos("Val Min", "TrackBars")
     v_max = cv2.getTrackbarPos("Val Max", "TrackBars")
-    lower = np.array([h_min, s_min, v_min])
-    upper = np.array([h_max, s_max, v_max])
-    mask = cv2.inRange(imgHSV, lower, upper)
+    lower = np.array([h_min, s_min, v_min]) # lower limits for classification
+    upper = np.array([h_max, s_max, v_max]) # upper limits for classification
+    mask = cv2.inRange(imgHSV, lower, upper) # mask that contains the circle outline
     # cv2.imshow("Origin " + str(i), mask)
     cv2.waitKey(1)
 
     detected_circles = cv2.HoughCircles(mask,
                                         cv2.HOUGH_GRADIENT, 1, 300, param1=50, param2=30, minRadius=1,
-                                        maxRadius=400)  # Existing logic
+                                        maxRadius=400)  # Detecting the circles
     # Draw circles that are detected.
     if detected_circles is not None:
         # Convert the circle parameters a, b and r to integers.
