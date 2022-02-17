@@ -9,7 +9,7 @@
   
 
 <p align= "center">
- StickerDetector projected prepared for eKare Inc.
+ StickerDetector project prepared for eKare Inc.
   </p>
 </p>
 
