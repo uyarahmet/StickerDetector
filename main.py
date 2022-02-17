@@ -44,9 +44,6 @@ for file in files: # from IMG_0049 to IMG_102
             cv2.circle(img, (a, b), r, (0, 255, 0), 10)
             # Draw a small circle (of radius 1) to show the center (needed for later).
             cv2.circle(img, (a, b), 1, (0, 0, 255), 30)
-        #position = (10, 250)
-        #cv2.rectangle(image, (x, x), (x + w, y + h), (0, 0, 0), -1)
-        #cv2.putText(img, str(r*2), position, cv2.FONT_HERSHEY_COMPLEX_SMALL, 20, (0, 0, 255), 1)
         x, y, w, h = 0, 0, 500, 250
         # Draw black background rectangle
         cv2.rectangle(img, (x, x), (x + w, y + h), (0, 0, 0), -1)
