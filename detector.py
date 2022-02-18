@@ -10,19 +10,13 @@ import cv2
 import numpy as np
 import os
 import glob
-def detector_method(file):
-    '''
-    :param file: jpeg, jpg, img...
-    :return: void, writes on images
-    the detector function takes a file as an input, then detects ekare's sticker and writes to an image
-    where the detected circle is shown and the diameter in terms of pixels is written on the left top corner.
-    '''
+def detectormethod(file):
     img = cv2.imread(file, cv2.IMREAD_COLOR)
 
-    def empty(a): # Empty function needed for parameter
+    def empty(a):
         pass
 
-    cv2.namedWindow("TrackBars") # Creating the filter.
+    cv2.namedWindow("TrackBars")
     cv2.createTrackbar("Hue Min", "TrackBars", 85, 179, empty)
     cv2.createTrackbar("Hue Max", "TrackBars", 179, 179, empty)
     cv2.createTrackbar("Sat Min", "TrackBars", 128, 255, empty)
@@ -36,15 +30,15 @@ def detector_method(file):
     s_max = cv2.getTrackbarPos("Sat Max", "TrackBars")
     v_min = cv2.getTrackbarPos("Val Min", "TrackBars")
     v_max = cv2.getTrackbarPos("Val Max", "TrackBars")
-    lower = np.array([h_min, s_min, v_min]) # lower limits for classification
-    upper = np.array([h_max, s_max, v_max]) # upper limits for classification
-    mask = cv2.inRange(imgHSV, lower, upper) # mask that contains the circle outline
+    lower = np.array([h_min, s_min, v_min])
+    upper = np.array([h_max, s_max, v_max])
+    mask = cv2.inRange(imgHSV, lower, upper)
     # cv2.imshow("Origin " + str(i), mask)
     cv2.waitKey(1)
 
     detected_circles = cv2.HoughCircles(mask,
                                         cv2.HOUGH_GRADIENT, 1, 300, param1=50, param2=30, minRadius=1,
-                                        maxRadius=400)  # Detecting the circles
+                                        maxRadius=400)  # Existing logic
     # Draw circles that are detected.
     if detected_circles is not None:
         # Convert the circle parameters a, b and r to integers.
@@ -59,10 +53,24 @@ def detector_method(file):
         # position = (10, 250)
         # cv2.rectangle(image, (x, x), (x + w, y + h), (0, 0, 0), -1)
         # cv2.putText(img, str(r*2), position, cv2.FONT_HERSHEY_COMPLEX_SMALL, 20, (0, 0, 255), 1)
-        x, y, w, h = 0, 0, 500, 250
+        #x, y, w, h = 0, 0, 500, 250
         # Draw black background rectangle
-        cv2.rectangle(img, (x, x), (x + w, y + h), (0, 0, 0), -1)
-        cv2.putText(img, str(r * 2), (x + int(w / 10), 200), cv2.FONT_HERSHEY_SIMPLEX, 5,
-                    (255, 255, 255), 10)
+        #cv2.rectangle(img, (x, x), (x + w, y + h), (0, 0, 0), -1)
+        #cv2.putText(img, str(r * 2), (x + int(w / 10), 200), cv2.FONT_HERSHEY_SIMPLEX, 5,
+        #            (255, 255, 255), 10)
+        found = 1
+        height = r*2
+        width = r*2
+        positionx = a - r
+        positiony = b - r
         path = 'Output/'
-        cv2.imwrite(os.path.join(path, str(file[10:23])), img)
+        final = [found, height, width, positionx, positiony]
+        file = open(os.path.join(path, str(file[10:18])+".txt"),"w")
+        file.write(str(final))
+        file.close()
+    else :
+        path = 'Output/'
+        final = [0, 0, 0, 0, 0]
+        file = open(os.path.join(path, str(file[10:18])+".txt"), "w")
+        file.write(str(final))
+        file.close()
