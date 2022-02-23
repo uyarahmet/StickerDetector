@@ -7,11 +7,11 @@ cap = cv2.VideoCapture(0)
 
 while True:
     ret, frame = cap.read()
-
     input = detectormethod(frame)
+    mask = None
     if (input[0] == 1):
         print("Detected!")
-
+        mask = input[6]
         cv2.circle(frame, (int(input[3] + input[1] / 2), int(input[4] + input[1] / 2)), int(input[1] / 2),
                    (0, 255, 0), 10)
         cv2.circle(frame, (int(input[3] + input[1] / 2), int(input[4] + input[1] / 2)), 1, (0, 0, 255), 30)
@@ -19,7 +19,8 @@ while True:
 
 
     cv2.imshow('webcam', frame)
-
+    if mask:
+        cv2.imshow('mask', mask)
 
 
     if cv2.waitKey(1) == ord('q'):

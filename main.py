@@ -11,6 +11,11 @@ import numpy as np
 import os
 from detector import *
 import glob
+'''
+files = glob.glob('Webcam_tests/*.jpeg',
+                   recursive = True)
+'''
+
 files = glob.glob('Resources/*.jpeg',
                    recursive = True)
 for file in files:
@@ -21,5 +26,8 @@ for file in files:
         cv2.circle(new_img, (int(final[3] + final[1]/2), int(final[4] + final[1]/2)), int(final[1]/2), (0, 255, 0), 10)
         cv2.circle(new_img, (int(final[3] + final[1]/2), int(final[4] + final[1]/2)), 1, (0, 0, 255), 30)
         cv2.rectangle(new_img, (final[3],final[4]), (final[3] + final[2], final[4] + final[1]), (0, 0, 255),10)
+        #path = 'Webcam_outputs/'
         path = 'Output/'
         cv2.imwrite(os.path.join(path, str(file[10:23])), new_img)
+        #cv2.imwrite(os.path.join(path, str(file[10:23])), final[6]) # looking for the mask
+
