@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 import os
 import glob
-def detectormethod(img):
+def detectormethod(unchanged_img):
     '''
     :param img: file that was cv2.imreaded
     :return: void, writes on images
@@ -19,12 +19,18 @@ def detectormethod(img):
     or not any circle has been detected in the first place.
     '''
 
+    width = 1000
+    height = (width * unchanged_img.shape[0]) / unchanged_img.shape[1]  # (w2 * h1 / w1) = h2
+    dsize = (width, int(height))
+    img = cv2.resize(unchanged_img, dsize)
+    imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
     min_distance_between_circles = 300
     param1 = 50
     param2 = 30
     minimum_radius = 1
     maximum_radius = 400
-    imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
     lower = np.array([85, 128, 102])
     upper = np.array([179, 255, 255])
     mask = cv2.inRange(imgHSV, lower, upper)
@@ -55,7 +61,7 @@ def detectormethod(img):
         positionx = a - r
         positiony = b - r
         path = 'Output/'
-        final = [found, height, width, positionx, positiony]
+        final = [found, height, width, positionx, positiony, img, mask] # final[5] = image, final[6] = mask // for debug
         return final
     else :
         path = 'Output/'
