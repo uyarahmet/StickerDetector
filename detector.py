@@ -10,15 +10,15 @@ import cv2
 import numpy as np
 import os
 import glob
-def detectormethod(file):
+def detectormethod(img):
     '''
-    :param file: jpeg, jpg, img...
+    :param img: file that was cv2.imreaded
     :return: void, writes on images
     the detector function takes a file as an input, then detects ekare's sticker and then returns its the coordinates of the
     top left corner of the square that encapsulates the circle, its width and height, and a binary value indicating whether
     or not any circle has been detected in the first place.
     '''
-    img = cv2.imread(file, cv2.IMREAD_COLOR)
+
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     lower = np.array([85, 128, 102])
     upper = np.array([179, 255, 255])

@@ -14,7 +14,8 @@ import glob
 files = glob.glob('Resources/*.jpeg',
                    recursive = True)
 for file in files:
-    final = detectormethod(file)
+    img = cv2.imread(file, cv2.IMREAD_COLOR)
+    final = detectormethod(img)
     if(final[0] == 1):
         img = cv2.imread(file, cv2.IMREAD_COLOR)
         cv2.circle(img, (int(final[3] + final[1]/2), int(final[4] + final[1]/2)), int(final[1]/2), (0, 255, 0), 10)
