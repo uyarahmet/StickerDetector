@@ -19,13 +19,18 @@ def detectormethod(img):
     or not any circle has been detected in the first place.
     '''
 
+    min_distance_between_circles = 300
+    param1 = 50
+    param2 = 30
+    minimum_radius = 1
+    maximum_radius = 400
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     lower = np.array([85, 128, 102])
     upper = np.array([179, 255, 255])
     mask = cv2.inRange(imgHSV, lower, upper)
     detected_circles = cv2.HoughCircles(mask,
-                                        cv2.HOUGH_GRADIENT, 1, 300, param1=50, param2=30, minRadius=1,
-                                        maxRadius=400)
+                                        cv2.HOUGH_GRADIENT, 1, min_distance_between_circles, param1=param1, param2=param2, minRadius=minimum_radius,
+                                        maxRadius=maximum_radius)
     # Logic for detected_circles:
     # Parameter 1: the image that will be scanned.
     # Parameter 2: defines the method that will be used to detect the circles on the image. Currently,
