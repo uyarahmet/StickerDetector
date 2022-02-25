@@ -9,6 +9,7 @@ while True:
     ret, frame = cap.read()
     input = detectormethod(frame)
     mask = None
+    frame = cv2.resize(frame, (1000, 750))
     if (input[0] == 1):
         print("Detected!")
         mask = input[6]
