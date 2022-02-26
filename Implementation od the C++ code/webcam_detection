@@ -1,0 +1,53 @@
+import numpy as np
+import cv2
+
+import detector
+from detector import *
+
+cap = cv2.VideoCapture(0)
+width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+print(width, height)
+
+
+def empty(a):
+    pass
+cv2.namedWindow("TrackBars")
+cv2.createTrackbar("Hue Min", "TrackBars", 85, 179, empty)
+cv2.createTrackbar("Hue Max", "TrackBars", 179, 179, empty)
+cv2.createTrackbar("Sat Min", "TrackBars", 128, 255, empty)
+cv2.createTrackbar("Sat Max", "TrackBars", 255, 255, empty)
+cv2.createTrackbar("Val Min", "TrackBars", 102, 255, empty)
+cv2.createTrackbar("Val Max", "TrackBars", 255, 255, empty)
+global h_min
+h_min = cv2.getTrackbarPos("Hue Min", "TrackBars")
+global h_max
+h_max = cv2.getTrackbarPos("Hue Max", "TrackBars")
+global s_min
+s_min = cv2.getTrackbarPos("Sat Min", "TrackBars")
+global s_max
+s_max = cv2.getTrackbarPos("Sat Max", "TrackBars")
+global v_min
+v_min = cv2.getTrackbarPos("Val Min", "TrackBars")
+global v_max
+v_max = cv2.getTrackbarPos("Val Max", "TrackBars")
+
+while True:
+    ret, frame = cap.read()
+    input = detectormethod(frame)
+    frame = cv2.resize(frame, (1000, 750))
+    if (input[0] == 1):
+        print("Detected!")
+        mask = input[6]
+
+        cv2.circle(mask, (int(input[3] + input[1] / 2) , int(input[4] + input[1] / 2)), int(input[1] / 2),
+                   (255, 255, 255), 10)
+        cv2.circle(mask, (int(input[3] + input[1] / 2), int(input[4] + input[1] / 2)), 1, (255, 255, 255), 30)
+        cv2.rectangle(mask, (input[3], input[4]), (input[3] + input[2], input[4] + input[1]), (255, 255, 255), 10)
+    cv2.imshow('webcam', detector.mask)
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+
+cap.release()
+cv2.destroyAllWindows()
