@@ -29,7 +29,7 @@ def detectormethod(unchanged_img):
     param1 = 50
     param2 = 30
     minimum_radius = 1
-    maximum_radius = 400
+    maximum_radius = 450
 
     lower = np.array([85, 128, 102])
     upper = np.array([179, 255, 255])
@@ -65,5 +65,5 @@ def detectormethod(unchanged_img):
         return final
     else :
         path = 'Output/'
-        final = [0, 0, 0, 0, 0]
+        final = [0, 0, 0, 0, 0, mask]
         return final
