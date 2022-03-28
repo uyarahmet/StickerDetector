@@ -1,9 +1,0 @@
-# ---------------------------------------------------------------------------
-# This program detects ekare's stickers in a given input file from Resources
-# and writes to a file inside the Output folder using the detector_method
-#
-# (C) 2022 Ahmet Uyar, Derin Berktay, Özgür Güler, VA, United States
-#  email: auyar19@ku.edu.tr, bberktay19@ku.edu.tr, oguler@ekareinc.com
-#
-# ---------------------------------------------------------------------------
-from webcam_detection import *
